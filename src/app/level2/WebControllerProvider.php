@@ -16,7 +16,12 @@
         return $app['twig']->render(
           'level2.twig',
           array(
-            'level2'  => Level2::getStatus()
+            'level2'  =>  Level2::getStatus(),
+            'events'  =>  array_slice(
+              Level2::getEvents( $app ),
+              0,
+              5
+            )
           )
         );
 

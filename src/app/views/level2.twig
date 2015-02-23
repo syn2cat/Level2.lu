@@ -2,39 +2,41 @@
 
 {% block container %}
 
-<!-- Example row of columns -->
 <div class="row">
 
   <div class="col-sm-4">
+
     <h2>Events</h2>
-  </div>
-  <div class="col-sm-8 event well">
-    <div class="col-sm-4">
-      <img src="https://www.hackerspace.lu/wp-content/uploads/2015/01/cfbtncrop.jpg" />
-    </div>
-    <div class="col-sm-8">
-      <h2>Hello from Tezza :)</h2>
-      <h4>Engineering-desks</h4>
-      <p>We're open every monday ;)</p>
-    </div>
+
   </div>
 
-</div>
+  <div class="col-sm-8">
 
-<div class="row">
+    {% for event in events %}
 
-  <div class="col-sm-4">
-    <h2>Hello from Tezza :)</h2>
-  </div>
-  <div class="col-sm-8 event well">
-    <div class="col-sm-4">
-      <img src="https://www.hackerspace.lu/wp-content/uploads/2015/01/cfbtncrop.jpg" />
-    </div>
-    <div class="col-sm-8">
-      <h2>Hello from Tezza :)</h2>
-      <h4>Engineering-desks</h4>
-      <p>We're open every monday ;)</p>
-    </div>
+      <div class="row event well">
+
+        <div class="col-sm-4">
+          <img src="https://www.hackerspace.lu/wp-content/uploads/2015/01/cfbtncrop.jpg" />
+        </div>
+        <div class="col-sm-8">
+          <h2>
+            {% if event.url.0 is defined %}
+              <a href="{{ event.url.0 }}">
+                {{ event.name }}
+              </a>
+              {% endif %}
+          </h2>
+          {% if event.location is defined %}
+            <h4>{{ event.location }}</h4>
+          {% endif %}
+          <p>{{ event.description }}</p>
+        </div>
+
+      </div>
+
+    {% endfor %}
+
   </div>
 
 </div>
