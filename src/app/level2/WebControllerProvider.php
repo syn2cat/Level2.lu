@@ -16,7 +16,7 @@
         return $app['twig']->render(
           'level2.twig',
           array(
-            'level2State'  => Level2::getStatus()
+            'level2'  => Level2::getStatus()
           )
         );
 

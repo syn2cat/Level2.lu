@@ -13,8 +13,10 @@
         true
       );
 
-      $Level2[ 'open'   ] = $spaceAPI[ 'state'   ][ 'open' ];
-      $Level2[ 'people' ] = $spaceAPI[ 'sensors' ][ 'people_now_present' ][ 0 ][ 'value' ];
+      $Level2[ 'open'     ] = $spaceAPI[ 'state'      ][ 'open'               ];
+      $Level2[ 'people'   ] = $spaceAPI[ 'sensors'    ][ 'people_now_present' ][ 0 ][ 'value' ];
+      $Level2[ 'address'  ] = $spaceAPI[ 'location'   ][ 'address'            ];
+      $Level2[ 'phone'    ] = $spaceAPI[ 'contact'    ][ 'phone'              ];
 
       return $Level2;
 

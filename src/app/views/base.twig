@@ -43,8 +43,8 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            {% if level2State.open %}
-              <li class="status status-open"><a>Open &middot; {{ level2State.people }} hackers inside</a></li>
+            {% if level2.open %}
+              <li class="status status-open"><a>Open &middot; {{ level2.people }} hackers inside</a></li>
             {% else %}
               <li class="status status-closed"><a>Closed</a></li>
             {% endif %}
@@ -55,14 +55,20 @@
 
     <div class="container">
 
-      <div class="content">
+      {% block container %}
+      {% endblock container %}
 
-        {% block content %}
-        {% endblock content %}
-
+      <div class="row footer">
+        <div class="col-sm-4">
+          {{ level2.address }}
+        </div>
+        <div class="col-sm-4">
+          T: <a href="tel:{{ level2.phone }}">{{ level2.phone }}</a>
+        </div>
+        <div class="col-sm-4">
+          {{ level2.address }}
+        </div>
       </div>
-
-      <footer>test</footer>
 
     </div> <!-- /container -->
 

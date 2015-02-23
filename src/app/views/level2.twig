@@ -1,12 +1,42 @@
 {% extends "base.twig" %}
 
-{% block content %}
+{% block container %}
 
 <!-- Example row of columns -->
 <div class="row">
-  <div class="col-sm-7 well">
+
+  <div class="col-sm-4">
+    <h2>Events</h2>
+  </div>
+  <div class="col-sm-8 event well">
+    <div class="col-sm-4">
+      <img src="https://www.hackerspace.lu/wp-content/uploads/2015/01/cfbtncrop.jpg" />
+    </div>
+    <div class="col-sm-8">
+      <h2>Hello from Tezza :)</h2>
+      <h4>Engineering-desks</h4>
+      <p>We're open every monday ;)</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-sm-4">
     <h2>Hello from Tezza :)</h2>
   </div>
+  <div class="col-sm-8 event well">
+    <div class="col-sm-4">
+      <img src="https://www.hackerspace.lu/wp-content/uploads/2015/01/cfbtncrop.jpg" />
+    </div>
+    <div class="col-sm-8">
+      <h2>Hello from Tezza :)</h2>
+      <h4>Engineering-desks</h4>
+      <p>We're open every monday ;)</p>
+    </div>
+  </div>
+
 </div>
 
 {% endblock %}
