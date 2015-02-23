@@ -4,42 +4,50 @@
 
 <div class="row">
 
-  <div class="col-sm-4">
+  <div class="col-sm-3">
 
     <h2>Events</h2>
 
   </div>
 
-  <div class="col-sm-8">
+  <div class="col-sm-9">
 
     {% for event in events %}
 
       <div class="row event well">
 
-        <div class="col-sm-4">
-          {% if event.image.0 is defined %}
-            <img src="{{ event.image.0 }}" />
+        <div class="col-sm-4 meta hidden-xs">
+          {% if event.image is defined %}
+            <div class="img">
+              <img src="{{ event.image }}" />
+            </div>
           {% else %}
             <img src="https://wiki.hackerspace.lu/w/images/8/86/Syn2catLOGO.png" />
           {% endif %}
-          {% if event.date is defined %}
-            <h4>{{ event.date }}</h4>
-          {% endif %}
+          <h4>{{ event.date }}</h4>
           {% if event.location is defined %}
-            <h4>{{ event.location }}</h4>
+            <h4 class="location">{{ event.location }}</h4>
           {% endif %}
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-8 description">
           <h2>
-            {% if event.url.0 is defined %}
-              <a href="{{ event.url.0 }}">
+            {% if event.url is defined %}
+              <a href="{{ event.url }}">
                 {{ event.name }}
               </a>
             {% else %}
                 {{ event.name }}
             {% endif %}
           </h2>
-          <p>{{ event.description|raw }}</p>
+          <h4 class="visible-xs">
+          {{ event.date }}
+          {% if event.location is defined %}
+             - {{ event.location }}
+          {% endif %}
+          </h4>
+          {% if event.description is defined %}
+            <p>{{ event.description|raw }}</p>
+          {% endif %}
         </div>
 
       </div>

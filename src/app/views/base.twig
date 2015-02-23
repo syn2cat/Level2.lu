@@ -38,9 +38,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Level2</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li {% if page == 'home' %}  class="active" {% endif %} ><a href="/">Level2</a></li>
+            <li {% if page == 'events' %}  class="active" {% endif %} ><a href="/events">Events</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if level2.open %}

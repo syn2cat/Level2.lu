@@ -39,6 +39,8 @@
 
       foreach( $googleCalendar[ 'items' ] as $googleEvent ) {
 
+        unset( $event );
+
         $event[ 'name'        ] = $googleEvent[ 'summary' ];
 
         if ( array_key_exists( 'dateTime' , $googleEvent[ 'start' ] ) ){
@@ -75,7 +77,9 @@
           );
 
           if ( is_array( $image ) ) {
-            $event[ 'image' ] = $image[ 0 ];
+            if ( $image[ 0 ][ 0 ] != '' ) {
+              $event[ 'image' ] = $image[ 0 ][ 0 ];
+            }
           }
 
           $event[ 'description' ] = nl2br( $event[ 'description' ] );
@@ -92,7 +96,7 @@
           );
 
           if ( is_array( $url ) ) {
-            $event[ 'url' ] = $url[ 0 ];
+            $event[ 'url' ] = $url[ 0 ][ 0 ];
           }
 
         }

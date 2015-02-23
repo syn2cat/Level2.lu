@@ -16,11 +16,29 @@
         return $app['twig']->render(
           'level2.twig',
           array(
+            'page'    =>  'home',
             'level2'  =>  Level2::getStatus(),
             'events'  =>  array_slice(
               Level2::getEvents( $app ),
               0,
-              5
+              1
+            )
+          )
+        );
+
+      });
+
+      $ctr->get('/events', function() use ( $app ) {
+
+        return $app['twig']->render(
+          'level2.twig',
+          array(
+            'page'    =>  'events',
+            'level2'  =>  Level2::getStatus(),
+            'events'  =>  array_slice(
+              Level2::getEvents( $app ),
+              0,
+              10
             )
           )
         );

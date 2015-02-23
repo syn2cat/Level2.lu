@@ -18,10 +18,9 @@ body {
   overflow-x: hidden;
 }
 .well {
-  padding: 0.5rem;
+  padding: 0.3rem;
   border: none;
   background: rgba( 255, 255, 255, 0.7 );
-  border-radius: 0.4rem;
 }
 .footer {
   margin: 1rem 0;
@@ -45,7 +44,7 @@ body {
 
 @media (min-width: 768px) {
   .navbar {
-    padding-top: 11rem;
+    padding-top: 11.3rem;
     margin-top: -10rem;
     padding-left: 10rem;
     margin-left: -10.5rem;
@@ -59,6 +58,31 @@ body {
   }
   .navbar-nav>li>a {
     border-radius: 0.4rem 0.4rem 0px 0px;
+  }
+  .event .meta .img {
+    text-align: center;
+  }
+  .event p {
+    margin-top: -0.5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .well {
+    border-radius: 0;
+  }
+}
+
+img {
+  max-width: 100%;
+  max-height: 150px;
+  border-radius: 0.4rem;
+
+}
+
+@media (max-width: 992px) {
+  img {
+    max-height: 100px;
   }
 }
 
@@ -81,15 +105,21 @@ h2, h3, h4 {
 .event h2, .event h3, .event h4, .event p {
   margin: 0;
 }
+.event h2 {
+  font-size: 2rem;
+}
+
 .event h4 {
   color: #777;
 }
 .event p {
-  margin-top: -0.5rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-img {
-  max-width: 100%;
-  border-radius: 0.4rem;
+.event .meta {
+  padding-top: 10px;
+}
 
+.description h4 {
+  margin-top: -0.5rem;
 }
