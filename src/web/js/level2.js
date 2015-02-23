@@ -6,7 +6,8 @@
 
 var t = new Trianglify(
   {
-    x_gradient: ["#d53e4f","#f46d43","#fdae61","#fee08b","#e6f598","#abdda4","#66c2a5","#3288bd"]
+    //x_gradient: ["#d53e4f","#f46d43","#fdae61","#fee08b","#e6f598","#abdda4","#66c2a5","#3288bd"]
+    x_gradient: ["#d7191c","#fdae61","#ffffbf","#a6d96a","#1a9641"]
   }
 );
 var prevheight = height();
