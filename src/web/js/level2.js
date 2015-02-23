@@ -19,7 +19,6 @@ redraw();
 
 function redraw() {
     var pattern = t.generate(document.body.clientWidth, height());
-    console.log( pattern );
     document.body.setAttribute('style', 'background-image: '+pattern.dataUrl);
 }
 
