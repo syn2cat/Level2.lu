@@ -25,6 +25,8 @@
               <a href="{{ event.url.0 }}">
                 {{ event.name }}
               </a>
+              {% else %}
+                {{ event.name }}
               {% endif %}
           </h2>
           {% if event.location is defined %}
