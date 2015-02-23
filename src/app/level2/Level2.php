@@ -42,34 +42,59 @@
         $event[ 'name'        ] = $googleEvent[ 'summary' ];
 
         if ( array_key_exists( 'dateTime' , $googleEvent[ 'start' ] ) ){
-          $event[ 'start' ][ 'datetime' ] = strtotime( $googleEvent[ 'start' ][ 'dateTime' ] );
-        } else {
-          $event[ 'start' ][ 'date'     ] = strtotime( $googleEvent[ 'start' ][ 'date' ] );
-        }
+          $event[ 'start' ] = strtotime( $googleEvent[ 'start' ][ 'dateTime' ] );
+          $event[ 'end'   ] = strtotime( $googleEvent[ 'end'   ][ 'dateTime' ] );
 
-        if ( array_key_exists( 'dateTime' , $googleEvent[ 'end' ] ) ){
-          $event[ 'end' ][ 'datetime' ] = strtotime( $googleEvent[ 'end' ][ 'dateTime' ] );
+          $event[ 'date'  ] = date( 'l, j. M G:i', $event[ 'start' ] );
+
         } else {
-          $event[ 'end' ][ 'date'     ] = strtotime( $googleEvent[ 'end' ][ 'date' ] );
+          $event[ 'start' ] = strtotime( $googleEvent[ 'start' ][ 'date' ] );
+          $event[ 'end'   ] = strtotime( $googleEvent[ 'end'   ][ 'date' ] );
+
+          $event[ 'date'  ] = date( 'l, j. M', $event[ 'start' ] );
+
         }
 
         if ( array_key_exists( 'location' , $googleEvent ) ){
           $event[ 'location'    ] = $googleEvent[ 'location' ];
         }
 
-        unset( $url );
-
         if ( array_key_exists( 'description' , $googleEvent ) ){
+
           $event[ 'description' ] = $googleEvent[ 'description' ];
-        }
 
-        $urlMatch = '/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$\(\)?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i';
-        preg_match_all( $urlMatch, $event[ 'description' ], $url, PREG_PATTERN_ORDER );
+          unset( $image );
 
-        $event[ 'description' ] = preg_replace( $urlMatch, '', $event[ 'description' ] );
+          $imageMatch = '/https?:\/\/[^ ]+?(?:\.jpg|\.png|\.gif)/i';
+          preg_match_all( $imageMatch, $event[ 'description' ], $image, PREG_PATTERN_ORDER );
 
-        if ( is_array( $url ) ) {
-          $event[ 'url' ] = $url[ 0 ];
+          $event[ 'description' ] = preg_replace(
+            $imageMatch,
+            '',
+            $event[ 'description' ]
+          );
+
+          if ( is_array( $image ) ) {
+            $event[ 'image' ] = $image[ 0 ];
+          }
+
+          $event[ 'description' ] = nl2br( $event[ 'description' ] );
+
+          unset( $url );
+
+          $urlMatch = '/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$\(\)?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i';
+          preg_match_all( $urlMatch, $event[ 'description' ], $url, PREG_PATTERN_ORDER );
+
+          $event[ 'description' ] = preg_replace(
+            $urlMatch,
+            '',
+            $event[ 'description' ]
+          );
+
+          if ( is_array( $url ) ) {
+            $event[ 'url' ] = $url[ 0 ];
+          }
+
         }
 
         $events[] = $event;

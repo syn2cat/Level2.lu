@@ -17,7 +17,17 @@
       <div class="row event well">
 
         <div class="col-sm-4">
-          <img src="https://www.hackerspace.lu/wp-content/uploads/2015/01/cfbtncrop.jpg" />
+          {% if event.image.0 is defined %}
+            <img src="{{ event.image.0 }}" />
+          {% else %}
+            <img src="https://wiki.hackerspace.lu/w/images/8/86/Syn2catLOGO.png" />
+          {% endif %}
+          {% if event.date is defined %}
+            <h4>{{ event.date }}</h4>
+          {% endif %}
+          {% if event.location is defined %}
+            <h4>{{ event.location }}</h4>
+          {% endif %}
         </div>
         <div class="col-sm-8">
           <h2>
@@ -25,14 +35,11 @@
               <a href="{{ event.url.0 }}">
                 {{ event.name }}
               </a>
-              {% else %}
+            {% else %}
                 {{ event.name }}
-              {% endif %}
+            {% endif %}
           </h2>
-          {% if event.location is defined %}
-            <h4>{{ event.location }}</h4>
-          {% endif %}
-          <p>{{ event.description }}</p>
+          <p>{{ event.description|raw }}</p>
         </div>
 
       </div>

@@ -3,7 +3,6 @@
  * syn2cat blue: #00AED2
  */
 
-
 * {
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
@@ -14,8 +13,9 @@
 html,
 body {
   font-family: 'Patrick Hand SC', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   height: 100%;
+  overflow-x: hidden;
 }
 .well {
   padding: 0.5rem;
@@ -23,18 +23,20 @@ body {
   background: rgba( 255, 255, 255, 0.7 );
   border-radius: 0.4rem;
 }
-
 .footer {
-  margin-top: 2rem;
+  margin: 1rem 0;
   color: #fff;
   background-color: #4B4949;
   background: rgba( 75, 73, 73, 0.8 );
   border-radius: 0.4rem;
   padding: 0.5rem;
 }
-
-.footer a {
-  color: rgba(127, 213, 225, 1);
+.container a {
+  color: #00AED2; //rgba(127, 213, 225, 1);
+}
+.container a:hover {
+  color: #F56533;
+  text-decoration: none;
 }
 
 /**
@@ -81,6 +83,9 @@ h2, h3, h4 {
 }
 .event h4 {
   color: #777;
+}
+.event p {
+  margin-top: -0.5rem;
 }
 
 img {
