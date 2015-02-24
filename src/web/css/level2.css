@@ -14,7 +14,6 @@ html,
 body {
   font-family: 'Patrick Hand SC', sans-serif;
   font-size: 18px;
-  height: 100%;
   overflow-x: hidden;
 }
 .well {
