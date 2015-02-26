@@ -24,4 +24,13 @@
 
     }
 
+    static public function saveFile ( $data, $destination ) {
+
+      file_put_contents(
+        $destination,
+        $data
+      );
+
+    }
+
   }

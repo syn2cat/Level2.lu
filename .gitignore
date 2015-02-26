@@ -1,3 +1,4 @@
 vendor
 src/app/config.json
 bootstrap-theme*
+src/web/cache/*

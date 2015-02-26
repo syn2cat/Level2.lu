@@ -122,7 +122,7 @@
 
     static public function getEvents ( $app ) {
 
-      $googleCalendar = self::getJSONCalendar( $app );
+      $googleCalendar = Helpers::JSON2Array( $app[ 'cache' ][ 'calendar' ][ 'json' ] );
 
       foreach( $googleCalendar[ 'items' ] as $googleEvent ) {
 
