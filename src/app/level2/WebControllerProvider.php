@@ -31,14 +31,14 @@
       $ctr->get('/events', function() use ( $app ) {
 
         return $app['twig']->render(
-          'level2.twig',
+          'events.twig',
           array(
             'page'      =>  'events',
             'level2'    =>  Level2::getStatus( $app ),
             'events'    =>  array_slice(
               Level2::getEvents( $app ),
               0,
-              10
+              100
             )
           )
         );
