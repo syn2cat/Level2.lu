@@ -6,12 +6,12 @@
 
   class Level2 {
 
-    static public function getStatus( $app ) {
+    static public $imageMatch = '/https?:\/\/[^ ]+?(?:\.jpg|\.png|\.gif)/i';
+    static public $urlMatch = '/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$\(\)?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i';
 
-      $spaceAPI = json_decode(
-        file_get_contents( $app[ 'spaceAPI' ] ),
-        true
-      );
+    static public function getStatus ( $app ) {
+
+      $spaceAPI = Helpers::spaceAPI( $app );
 
       $Level2[ 'open'     ] = $spaceAPI[ 'state'      ][ 'open'               ];
       $Level2[ 'people'   ] = $spaceAPI[ 'sensors'    ][ 'people_now_present' ][ 0 ][ 'value' ];
@@ -22,40 +22,115 @@
 
     }
 
-    static public function getEvents( $app ) {
+    static public function getJSONCalendar ( $app ) {
 
       $googleCalendarJson = 'https://www.googleapis.com/calendar/v3/calendars/'
         . $app[ 'google' ][ 'calendar_id' ] . '/events'
         . '?singleEvents=true'
         . '&orderBy=startTime'
-        . '&timeMin=2015-02-22T00%3A00%3A00%2B01%3A00'
+        . '&timeMin=' . date( 'Y-m-d' ) . 'T' . date( 'H' ) . '%3A' . date( 'i' ) . '%3A' . date( 's' ) . '%2B01%3A00'
         . '&fields=description%2Citems(description%2Crecurrence%2Csummary%2Clocation%2Cstart%2Cend)%2Csummary'
         . '&key=' . $app[ 'google' ][ 'api_key' ];
 
-      $googleCalendar = json_decode(
-        file_get_contents( $googleCalendarJson ),
-        true
+      return Helpers::JSON2Array( $googleCalendarJson );
+
+    }
+
+    static public function getEventDateTime ( $googleEvent ) {
+
+      if ( array_key_exists( 'dateTime' , $googleEvent[ 'start' ] ) ){
+        $event[ 'start' ] = strtotime( $googleEvent[ 'start' ][ 'dateTime' ] );
+        $event[ 'end'   ] = strtotime( $googleEvent[ 'end'   ][ 'dateTime' ] );
+
+        $event[ 'date'  ] = date( 'l, j. M G:i', $event[ 'start' ] );
+
+      } else {
+        $event[ 'start' ] = strtotime( $googleEvent[ 'start' ][ 'date' ] );
+        $event[ 'end'   ] = strtotime( $googleEvent[ 'end'   ][ 'date' ] );
+
+        $event[ 'date'  ] = date( 'l, j. M', $event[ 'start' ] );
+
+      }
+
+      return $event;
+
+    }
+
+    static public function getImages( $googleEvent ) {
+
+      preg_match_all( self::$imageMatch, $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER );
+
+      if ( sizeof( $image[ 0 ] ) > 0 ) {
+
+        if ( $image[ 0 ][ 0 ] != '' ) {
+
+          return $image[ 0 ][ 0 ];
+
+        } else {
+
+          return false;
+
+        }
+
+      }
+
+    }
+
+    static public function getURLs( $googleEvent ) {
+
+      preg_match_all( self::$urlMatch, $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER );
+
+      if ( sizeof( $url[ 0 ] ) > 0 ) {
+
+        if ( $url[ 0 ][ 0 ] != '' ) {
+
+          return $url[ 0 ][ 0 ];
+
+        } else {
+
+          return false;
+
+        }
+
+      }
+
+    }
+
+    static public function removeImages( $googleEvent ) {
+
+      preg_match_all( self::$imageMatch, $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER );
+
+      return preg_replace(
+        self::$imageMatch,
+        '',
+        $googleEvent[ 'description' ]
       );
+
+    }
+
+    static public function removeURLs( $googleEvent ) {
+
+      preg_match_all( self::$urlMatch, $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER );
+
+      return preg_replace(
+        self::$urlMatch,
+        '',
+        $googleEvent[ 'description' ]
+      );
+
+    }
+
+    static public function getEvents ( $app ) {
+
+      $googleCalendar = self::getJSONCalendar( $app );
 
       foreach( $googleCalendar[ 'items' ] as $googleEvent ) {
 
         unset( $event );
 
+        $event = self::getEventDateTime( $googleEvent );
+
         $event[ 'name'        ] = $googleEvent[ 'summary' ];
-
-        if ( array_key_exists( 'dateTime' , $googleEvent[ 'start' ] ) ){
-          $event[ 'start' ] = strtotime( $googleEvent[ 'start' ][ 'dateTime' ] );
-          $event[ 'end'   ] = strtotime( $googleEvent[ 'end'   ][ 'dateTime' ] );
-
-          $event[ 'date'  ] = date( 'l, j. M G:i', $event[ 'start' ] );
-
-        } else {
-          $event[ 'start' ] = strtotime( $googleEvent[ 'start' ][ 'date' ] );
-          $event[ 'end'   ] = strtotime( $googleEvent[ 'end'   ][ 'date' ] );
-
-          $event[ 'date'  ] = date( 'l, j. M', $event[ 'start' ] );
-
-        }
 
         if ( array_key_exists( 'location' , $googleEvent ) ){
           $event[ 'location'    ] = $googleEvent[ 'location' ];
@@ -65,39 +140,11 @@
 
           $event[ 'description' ] = $googleEvent[ 'description' ];
 
-          unset( $image );
-
-          $imageMatch = '/https?:\/\/[^ ]+?(?:\.jpg|\.png|\.gif)/i';
-          preg_match_all( $imageMatch, $event[ 'description' ], $image, PREG_PATTERN_ORDER );
-
-          $event[ 'description' ] = preg_replace(
-            $imageMatch,
-            '',
-            $event[ 'description' ]
-          );
-
-          if ( sizeof( $image[ 0 ] ) > 0 ) {
-            if ( $image[ 0 ][ 0 ] != '' ) {
-              $event[ 'image' ] = $image[ 0 ][ 0 ];
-            }
-          }
-
+          $event[ 'image'       ] = self::getImages( $event );
+          $event[ 'description' ] = self::removeImages( $event );
+          $event[ 'url'         ] = self::getURLs( $event );
+          $event[ 'description' ] = self::removeURLs( $event );
           $event[ 'description' ] = nl2br( $event[ 'description' ] );
-
-          unset( $url );
-
-          $urlMatch = '/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$\(\)?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i';
-          preg_match_all( $urlMatch, $event[ 'description' ], $url, PREG_PATTERN_ORDER );
-
-          $event[ 'description' ] = preg_replace(
-            $urlMatch,
-            '',
-            $event[ 'description' ]
-          );
-
-          if ( sizeof( $url[ 0 ] ) > 0 ) {
-            $event[ 'url' ] = $url[ 0 ][ 0 ];
-          }
 
         }
 
