@@ -1,7 +1,8 @@
 {
-  "debug"   : false,
-  "google"  : {
-    "api_key"     : "",
-    "calendar_id" : ""
-  }
+  "debug"         : false,
+  "google"        : {
+    "api_key"     : "GOOGLE_API_KEY_GOES_HERE",
+    "calendar_id" : "GOOGLE_CALENDAR_ID_GOES_HERE"
+  },
+  "spaceAPI"      : "URL_TO_SPACE_API_GOES_HERE"
 }

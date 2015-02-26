@@ -6,10 +6,10 @@
 
   class Level2 {
 
-    static public function getStatus() {
+    static public function getStatus( $app ) {
 
       $spaceAPI = json_decode(
-        file_get_contents( 'https://spaceapi.syn2cat.lu/status/json' ),
+        file_get_contents( $app[ 'spaceAPI' ] ),
         true
       );
 
@@ -76,7 +76,7 @@
             $event[ 'description' ]
           );
 
-          if ( is_array( $image ) ) {
+          if ( sizeof( $image[ 0 ] ) > 0 ) {
             if ( $image[ 0 ][ 0 ] != '' ) {
               $event[ 'image' ] = $image[ 0 ][ 0 ];
             }
@@ -95,7 +95,7 @@
             $event[ 'description' ]
           );
 
-          if ( is_array( $url ) ) {
+          if ( sizeof( $url[ 0 ] ) > 0 ) {
             $event[ 'url' ] = $url[ 0 ][ 0 ];
           }
 

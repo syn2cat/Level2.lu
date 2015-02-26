@@ -17,7 +17,7 @@
           'level2.twig',
           array(
             'page'    =>  'home',
-            'level2'  =>  Level2::getStatus(),
+            'level2'  =>  Level2::getStatus( $app ),
             'events'  =>  array_slice(
               Level2::getEvents( $app ),
               0,
@@ -34,7 +34,7 @@
           'level2.twig',
           array(
             'page'    =>  'events',
-            'level2'  =>  Level2::getStatus(),
+            'level2'  =>  Level2::getStatus( $app ),
             'events'  =>  array_slice(
               Level2::getEvents( $app ),
               0,
