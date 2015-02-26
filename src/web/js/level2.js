@@ -10,7 +10,6 @@ var t = new Trianglify(
     x_gradient: ["#d7191c","#fdae61","#ffffbf","#a6d96a","#1a9641"]
   }
 );
-var prevheight = height();
 
 window.onresize = function() {
     redraw();
@@ -19,7 +18,7 @@ window.onresize = function() {
 redraw();
 
 function redraw() {
-    var pattern = t.generate(document.body.clientWidth, height());
+    var pattern = t.generate(window.innerWidth, window.innerHeight);
     document.body.setAttribute('style', 'background-image: '+pattern.dataUrl);
 }
 
