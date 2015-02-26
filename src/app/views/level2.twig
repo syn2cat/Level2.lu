@@ -17,9 +17,15 @@
       <div class="row event well">
 
         <div class="col-sm-4 meta hidden-xs">
-          {% if event.image is defined %}
+          {% if event.image %}
             <div class="img">
-              <img src="{{ event.image }}" />
+              {% if event.url %}
+                <a href="{{ event.url }}">
+                  <img src="{{ event.image }}" />
+                </a>
+              {% else %}
+                <img src="{{ event.image }}" />
+              {% endif %}
             </div>
           {% else %}
             <img src="{{ level2.logo }}" />
@@ -31,7 +37,7 @@
         </div>
         <div class="col-sm-8 description">
           <h2>
-            {% if event.url is defined %}
+            {% if event.url %}
               <a href="{{ event.url }}">
                 {{ event.name }}
               </a>

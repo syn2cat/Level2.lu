@@ -134,8 +134,11 @@
         $event[ 'name'        ] = $googleEvent[ 'summary' ];
 
         if ( array_key_exists( 'location' , $googleEvent ) ){
-          $event[ 'location'    ] = $googleEvent[ 'location' ];
+          $event[ 'location'  ] = $googleEvent[ 'location' ];
         }
+
+        $event[ 'image'       ] = false;
+        $event[ 'url'         ] = false;
 
         if ( array_key_exists( 'description' , $googleEvent ) ){
 
