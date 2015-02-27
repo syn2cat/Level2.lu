@@ -160,4 +160,20 @@
 
     }
 
+    static public function getEventsByMonth( $events, $year, $month ) {
+
+      foreach( $events as $event ) {
+
+        if ( ( date( 'Y', $event[ 'start' ] ) == $year ) && ( date( 'm', $event[ 'start' ] ) == $month ) ) {
+
+          $eventsInMonth[] = $event;
+
+        }
+
+      }
+
+      return $eventsInMonth;
+
+    }
+
   }

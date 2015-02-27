@@ -4,6 +4,7 @@
 
   use Silex\Application;
   use Silex\ControllerProviderInterface;
+  use Symfony\Component\HttpFoundation\Request;
 
   class WebControllerProvider implements ControllerProviderInterface {
 
@@ -28,17 +29,34 @@
 
       });
 
-      $ctr->get('/events', function() use ( $app ) {
+      $ctr->get('/events/', function() use ( $app ) {
 
         return $app['twig']->render(
           'events.twig',
           array(
             'page'      =>  'events',
             'level2'    =>  Level2::getStatus( $app ),
-            'events'    =>  array_slice(
+            'events'    =>  Level2::getEventsByMonth(
               Level2::getEvents( $app ),
-              0,
-              100
+              date( 'Y' ),
+              date( 'm' )
+            )
+          )
+        );
+
+      });
+
+      $ctr->get('/events/{year}/{month}', function( $year, $month ) use ( $app ) {
+
+        return $app['twig']->render(
+          'events.twig',
+          array(
+            'page'      =>  'events',
+            'level2'    =>  Level2::getStatus( $app ),
+            'events'    =>  Level2::getEventsByMonth(
+              Level2::getEvents( $app ),
+              $year,
+              $month
             )
           )
         );
