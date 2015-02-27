@@ -131,3 +131,7 @@ h2, h3, h4 {
 .well:hover {
   background: rgba( 255, 255, 255, 0.8 );
 }
+
+.well.map {
+  padding: 0;
+}
