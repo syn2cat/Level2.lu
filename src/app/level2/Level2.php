@@ -162,6 +162,8 @@
 
     static public function getEventsByMonth( $events, $year, $month ) {
 
+      $eventsInMonth = false;
+
       foreach( $events as $event ) {
 
         if ( ( date( 'Y', $event[ 'start' ] ) == $year ) && ( date( 'm', $event[ 'start' ] ) == $month ) ) {
