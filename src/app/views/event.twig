@@ -6,7 +6,7 @@
       {% if event.image %}
         <div class="img">
           {% if event.url %}
-            <a href="{{ event.url }}">
+            <a target="_blank" href="{{ event.url }}">
               <img src="{{ event.image }}" />
             </a>
           {% else %}
@@ -15,7 +15,7 @@
         </div>
       {% else %}
         {% if event.url %}
-          <a href="{{ event.url }}">
+          <a target="_blank" href="{{ event.url }}">
             <img src="{{ level2.logo }}" />
           </a>
         {% else %}
@@ -30,7 +30,7 @@
     <div class="col-sm-8 description">
       <h2>
         {% if event.url %}
-          <a href="{{ event.url }}">
+          <a target="_blank" href="{{ event.url }}">
             {{ event.name }}
           </a>
         {% else %}
