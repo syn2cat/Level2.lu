@@ -4,7 +4,6 @@
 
   use Silex\Application;
   use Silex\ControllerProviderInterface;
-  use Symfony\Component\HttpFoundation\Request;
 
   class WebControllerProvider implements ControllerProviderInterface {
 
@@ -31,22 +30,46 @@
 
       $ctr->get('/events/', function() use ( $app ) {
 
+        $eventsToReturn = Level2::getEventsByMonth(
+          Level2::getEvents( $app ),
+          date( 'Y' ),
+          date( 'm' )
+        );
+
         return $app['twig']->render(
           'events.twig',
           array(
             'page'      =>  'events',
             'level2'    =>  Level2::getStatus( $app ),
-            'events'    =>  Level2::getEventsByMonth(
-              Level2::getEvents( $app ),
-              date( 'Y' ),
-              date( 'm' )
-            )
+            'events'    =>  $eventsToReturn
           )
         );
 
       });
 
       $ctr->get('/events/{year}/{month}', function( $year, $month ) use ( $app ) {
+
+        if ( strpos( $month, '.' ) !== false ) {
+
+          $arguments = explode( '.', $month );
+          $month  = $arguments[ 0 ];
+          $format = $arguments[ 1 ];
+
+          if ( $format == 'json' ) {
+
+            print_r( $eventsToReturn );
+
+            return $app->json(
+              Level2::getEventsByMonth(
+                Level2::getEvents( $app ),
+                $year,
+                $month
+              )
+            );
+
+          }
+
+        }
 
         return $app['twig']->render(
           'events.twig',
@@ -57,6 +80,45 @@
               Level2::getEvents( $app ),
               $year,
               $month
+            )
+          )
+        );
+
+      });
+
+      $ctr->get('/events/{count}', function( $count ) use ( $app ) {
+
+        if ( strpos( $count, '.' ) !== false ) {
+
+          $arguments = explode( '.', $count );
+          $count  = $arguments[ 0 ];
+          $format = $arguments[ 1 ];
+
+          if ( $format == 'json' ) {
+
+            print_r( $eventsToReturn );
+
+            return $app->json(
+              array_slice(
+                Level2::getEvents( $app ),
+                0,
+                $count
+              )
+            );
+
+          }
+
+        }
+
+        return $app['twig']->render(
+          'events.twig',
+          array(
+            'page'      =>  'events',
+            'level2'    =>  Level2::getStatus( $app ),
+            'events'    =>  array_slice(
+              Level2::getEvents( $app ),
+              0,
+              $count
             )
           )
         );
