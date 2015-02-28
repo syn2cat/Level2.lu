@@ -1,0 +1,20 @@
+{% block event %}
+
+  <div class="row event well">
+
+    <div class="col-sm-4 meta hidden-xs">
+
+      {% embed "event-meta.twig" %}
+      {% endembed %}
+
+    </div>
+    <div class="col-sm-8 description">
+
+      {% embed "event-info.twig" %}
+      {% endembed %}
+
+    </div>
+
+  </div>
+
+{% endblock %}

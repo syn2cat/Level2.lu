@@ -6,37 +6,95 @@
 
   <div class="col-md-4">
 
-    <h2>Map</h2>
+    <section>
 
-    <iframe width="100%" height="300px" frameBorder="0" src="https://umap.openstreetmap.fr/en/map/level-2-surroundings_14716?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&allowEdit=false&moreControl=true&datalayersControl=true&onLoadPanel=undefined&captionBar=false#17/49.59165/6.14071"></iframe>
+      <h2 class="well">#openMonday</h2>
+      <p class="well info">
+        We hold open evenings <b>every Monday</b> from <b>8pm</b> where members and non-members hang out, hack on projects, socialise, and collaborate. <a target="_blank" href="https://wiki.hackerspace.lu/wiki/Openmonday">Learn more</a>
+      </p>
 
-    <a class="twitter-timeline" href="https://twitter.com/Level2Lu" data-widget-id="571113553709789184">Tweets by @Level2Lu</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </section>
+
+    <section>
+
+      <h2 class="well">Location</h2>
+
+      <p class="well no-bottom-margin no-bottom-rounded">
+        Level2 is located in Bonnevoie, very close to Luxembourg city. We hold regular <a href="/events">events</a> (often free) which are open to everyone.
+      </p>
+
+      <div class="google-map-container">
+        <a href="https://goo.gl/maps/OWqIf">
+          <img class="google-map no-margin" src="https://maps.googleapis.com/maps/api/staticmap?markers=color:blue%7Clabel:L%7C49.591597,6.140704&zoom=15&size=500x400" />
+        </a>
+      </div>
+
+      <p class="well no-top-radius">
+        Level2<br />
+        87, route de Thionville<br />
+        L-2611 Luxembourg<br />
+        T: <a href="tel:+352-20-33-35-50">+352 20 33 35 50</a>
+      </p>
+
+    </section>
+
+    <!--<section class="hidden-xs">
+
+      <a class="twitter-timeline" href="https://twitter.com/Level2Lu" data-widget-id="571113553709789184">Tweets by @Level2Lu</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    </section>-->
 
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-8 no-padding">
 
-  <h2>Membership</h2>
+    <div class="col-md-12">
 
-    <div class="well">
+      <section>
 
-      Our members have a hand in the running of the organisation and 24/7 access to the space. We're a members-owned non-profit association. We need our members to pay for our rent and infrastructure. The minimum subscription is €9.50/month.
+        <h2 class="well">Next Event</h2>
+
+        {% for event in events %}
+
+          {% embed "event-grid-split.twig" %}
+          {% endembed %}
+
+        {% endfor %}
+
+      </section>
 
     </div>
 
-  </div>
+    <div class="col-md-6">
 
-  <div class="col-md-4">
+      <section>
 
-    <h2>Next Event</h2>
+        <h2 class="well">Membership</h2>
+        <p class="well info">
+          Our members have a hand in the running of the organisation and 24/7 access to the space. We're a members-owned non-profit association. We need our members to pay for our rent and infrastructure. <a target="_blank" href="https://wiki.hackerspace.lu/wiki/Membership">Join the community</a>
+        </p>
 
-    {% for event in events %}
+      </section>
 
-      {% embed "event.twig" %}
-      {% endembed %}
+    </div>
 
-    {% endfor %}
+    <div class="col-md-6">
+
+      <section>
+
+        <h2 class="well">Sponsors</h2>
+        <p class="well info sponsors">
+          <a target="_blank" href="http://1024.lu"><img src="/img/1024.png" /></a>
+          <a target="_blank" href="http://men.etat.lu/"><img src="https://www.hackerspace.lu/wp-content/uploads/2014/08/GOUV_MEEJ.png" /></a>
+          <a target="_blank" href="http://soundselection.lu"><img src="https://www.hackerspace.lu/wp-content/uploads/2014/08/soundselection_black_on_transparent_small.png" /></a>
+          <a target="_blank" href="http://mixvoip.com/"><img src="https://www.hackerspace.lu/wp-content/uploads/2011/12/140px-MIXvoip-400.png" /></a>
+          <a target="_blank" href="http://ion.lu"><img src="https://www.hackerspace.lu/wp-content/uploads/2011/12/LogoIONgroup218.png" /></a>
+        </p>
+
+      </section>
+
+    </div>
 
   </div>
 

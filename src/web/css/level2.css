@@ -17,12 +17,15 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  font-family: 'Patrick Hand SC', sans-serif;
-  font-size: 18px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
   overflow-x: hidden;
 }
+a {
+  text-decoration: none;
+}
 .well {
-  padding: 0.3rem;
+  padding: 0.7rem;
   border: none;
   background: rgba( 255, 255, 255, 0.7 );
 }
@@ -79,13 +82,15 @@ body {
 
 img {
   max-width: 100%;
-  max-height: 150px;
   border-radius: 0.4rem;
+}
 
+.event img {
+  max-height: 150px;
 }
 
 @media (max-width: 992px) {
-  img {
+  .event img {
     max-height: 100px;
   }
 }
@@ -103,16 +108,16 @@ img {
  */
 
 h2, h3, h4 {
-  text-shadow: 1px 0px 6px rgba(255, 255, 255, 0.7);
+  text-shadow: 1px 0px 6px rgba( 255, 255, 255, 0.7 );
+  margin: 0;
 }
 
-.event h2, .event h3, .event h4, .event p {
+p {
   margin: 0;
 }
 .event h2 {
   font-size: 2rem;
 }
-
 .event h4 {
   color: #777;
 }
@@ -127,11 +132,51 @@ h2, h3, h4 {
 .description h4 {
   margin-top: -0.5rem;
 }
-
-.well:hover {
-  background: rgba( 255, 255, 255, 0.8 );
+.well.map {
+  padding: 0;
+}
+.google-map {
+  width: 100%;
+  border-radius: 0;
+}
+.google-map-container {
+  width: 100%;
+}
+h2.well {
+  padding: auto 5rem;
+  background: rgba( 51, 51, 51, 0.7 );
+  background: rgba( 0, 174, 201, 0.7 );
+  margin-bottom: 0;
+  border-radius: 0.4rem 0.4rem 0 0;
+  color: #ffffff;
+  text-shadow: none;
+}
+.well.info {
+  border-radius: 0 0 0.4rem 0.4rem;
+}
+.no-top-radius {
+  border-radius: 0 0 0.4rem 0.4rem ;
 }
 
-.well.map {
+section:hover h2.well {
+  background: rgba( 51, 51, 51, 0.8 );
+  background: rgba( 0, 174, 201, 0.8 );
+}
+
+section:hover .well {
+  background: rgba( 255, 255, 255, 0.8 );
+}
+.sponsors img {
+  max-width: 49%;
+  border-radius: 0;
+  margin: 5px auto;
+}
+.no-bottom-margin {
+  margin-bottom: 0;
+}
+.no-bottom-rounded {
+  border-radius: 0;
+}
+.no-padding {
   padding: 0;
 }

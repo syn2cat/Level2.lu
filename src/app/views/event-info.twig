@@ -1,0 +1,18 @@
+<h2>
+  {% if event.url %}
+    <a target="_blank" href="{{ event.url }}">
+      {{ event.name }}
+    </a>
+  {% else %}
+      {{ event.name }}
+  {% endif %}
+</h2>
+<h4 class="visible-xs">
+{{ event.date }}
+{% if event.location is defined %}
+   - {{ event.location }}
+{% endif %}
+</h4>
+{% if event.description is defined %}
+  <p>{{ event.description|raw }}</p>
+{% endif %}

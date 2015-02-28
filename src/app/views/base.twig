@@ -12,7 +12,7 @@
     <title>Level2</title>
 
     <!-- Bootstrap core CSS -->
-    <link href='https://fonts.googleapis.com/css?family=Patrick+Hand+SC' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/level2.css" rel="stylesheet">
 
@@ -57,24 +57,13 @@
       {% block container %}
       {% endblock container %}
 
-      <div class="row footer">
-        <div class="col-sm-4">
-          {{ level2.address }}
-        </div>
-        <div class="col-sm-4">
-          T: <a href="tel:{{ level2.phone }}">{{ level2.phone }}</a>
-        </div>
-        <div class="col-sm-4">
-          {{ level2.address }}
-        </div>
-      </div>
-
     </div> <!-- /container -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
     <script src="/js/d3.v3.min.js"></script>
     <script src="/js/trianglify.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="/js/level2.js"></script>
     <script src="/bootstrap/js/bootstrap.min.js"></script>
 

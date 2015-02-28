@@ -37,7 +37,7 @@
         );
 
         return $app['twig']->render(
-          'events.twig',
+          'event-list.twig',
           array(
             'page'      =>  'events',
             'level2'    =>  Level2::getStatus( $app ),
@@ -72,7 +72,7 @@
         }
 
         return $app['twig']->render(
-          'events.twig',
+          'event-list.twig',
           array(
             'page'      =>  'events',
             'level2'    =>  Level2::getStatus( $app ),
@@ -111,7 +111,7 @@
         }
 
         return $app['twig']->render(
-          'events.twig',
+          'event-list.twig',
           array(
             'page'      =>  'events',
             'level2'    =>  Level2::getStatus( $app ),
