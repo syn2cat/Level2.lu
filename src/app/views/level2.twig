@@ -49,7 +49,7 @@
 
   <div class="col-md-8 no-padding">
 
-    <div class="col-md-12">
+    <div class="col-md-12 next-event">
 
       <section>
 
@@ -57,7 +57,7 @@
 
         {% for event in events %}
 
-          {% embed "event-grid-split.twig" %}
+          {% embed "event.twig" %}
           {% endembed %}
 
         {% endfor %}

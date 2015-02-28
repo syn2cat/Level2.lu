@@ -180,3 +180,12 @@ section:hover .well {
 .no-padding {
   padding: 0;
 }
+.row {
+  margin: auto 0;
+}
+.next-event {
+  margin-bottom: 20px;
+}
+.next-event .event {
+  border-radius: 0 0 0.4rem 0.4rem;
+}
