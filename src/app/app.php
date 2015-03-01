@@ -27,4 +27,15 @@
 
   $app->mount( '/', new level2\WebControllerProvider()  );
 
+  $app->error(function (\Exception $e, $code) use ( $app ) {
+      switch ($code) {
+          case 404:
+              return $app->redirect('/');
+          default:
+              $message = 'We are sorry, but something went terribly wrong.';
+      }
+
+      return new Response($message);
+  });
+
   return $app;
