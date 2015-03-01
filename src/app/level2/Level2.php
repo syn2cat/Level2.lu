@@ -13,11 +13,12 @@
 
       $spaceAPI = Helpers::spaceAPI( $app );
 
-      $Level2[ 'open'     ] = $spaceAPI[ 'state'      ][ 'open'               ];
-      $Level2[ 'people'   ] = $spaceAPI[ 'sensors'    ][ 'people_now_present' ][ 0 ][ 'value' ];
-      $Level2[ 'address'  ] = $spaceAPI[ 'location'   ][ 'address'            ];
-      $Level2[ 'phone'    ] = $spaceAPI[ 'contact'    ][ 'phone'              ];
-      $Level2[ 'logo'     ] = $spaceAPI[ 'logo'       ];
+      $Level2[ 'open'       ] = $spaceAPI[ 'state'      ][ 'open'               ];
+      $Level2[ 'lastchange' ] = $spaceAPI[ 'state'      ][ 'lastchange'         ];
+      $Level2[ 'people'     ] = $spaceAPI[ 'sensors'    ][ 'people_now_present' ][ 0 ][ 'value' ];
+      $Level2[ 'address'    ] = $spaceAPI[ 'location'   ][ 'address'            ];
+      $Level2[ 'phone'      ] = $spaceAPI[ 'contact'    ][ 'phone'              ];
+      $Level2[ 'logo'       ] = $spaceAPI[ 'logo'       ];
 
       return $Level2;
 

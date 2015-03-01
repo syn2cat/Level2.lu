@@ -74,19 +74,14 @@ a {
   }
 }
 
-@media (max-width: 767px) {
-  .well {
-    border-radius: 0;
-  }
-}
-
 img {
   max-width: 100%;
   border-radius: 0.4rem;
 }
 
 .event img {
-  max-height: 150px;
+  max-height: 10rem;
+  margin-bottom: 0.6rem;
 }
 
 @media (max-width: 992px) {
@@ -117,6 +112,7 @@ p {
 }
 .event h2 {
   font-size: 2rem;
+  margin-bottom: 0.7rem;
 }
 .event h4 {
   color: #777;
@@ -181,11 +177,16 @@ section:hover .well {
   padding: 0;
 }
 .row {
-  margin: auto 0;
-}
-.next-event {
-  margin-bottom: 20px;
+  margin: 0 0 20px 0;
 }
 .next-event .event {
   border-radius: 0 0 0.4rem 0.4rem;
+}
+.well.status-open, .well.status-open:hover {
+  color: #fff;
+  background-color: #67C13C;
+}
+.well.status-closed, .well.status-closed:hover {
+  color: #fff;
+  background-color: #F56533;
 }

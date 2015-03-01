@@ -41,7 +41,7 @@
             <li {% if page == 'home' %}  class="active" {% endif %} ><a href="/">Level2</a></li>
             <li {% if page == 'events' %}  class="active" {% endif %} ><a href="/events">Events</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right hidden-xs">
             {% if level2.open %}
               <li class="status status-open"><a>We're OPEN &middot; {{ level2.people }} hacker{% if level2.people > 1 %}s{% endif %} present</a></li>
             {% else %}

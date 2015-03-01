@@ -6,6 +6,16 @@
 
   <div class="col-md-4">
 
+    <section class="visible-xs">
+
+      {% if level2.open %}
+        <div class="well status status-open">We're OPEN since {{ level2.lastchange|date("g:i") }}<br />{{ level2.people }} hacker{% if level2.people > 1 %}s{% endif %} present</div>
+      {% else %}
+        <div class="well status status-closed">Sorry, we're Closed</div>
+      {% endif %}
+
+    </section>
+
     <section>
 
       <h2 class="well">#openMonday</h2>
@@ -33,7 +43,7 @@
         Level2<br />
         87, route de Thionville<br />
         L-2611 Luxembourg<br />
-        T: <a href="tel:+352-20-33-35-50">+352 20 33 35 50</a>
+        T: <a href="tel:+352-20-333-550">+352 20 333 550</a>
       </p>
 
     </section>
