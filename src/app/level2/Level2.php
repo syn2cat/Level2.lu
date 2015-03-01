@@ -6,8 +6,8 @@
 
   class Level2 {
 
-    static public $imageMatch = '/https?:\/\/[^ ]+?(?:\.jpg|\.png|\.gif)/i';
-    static public $urlMatch = '/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$\(\)?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i';
+    static public $imageMatch = 'https?:\/\/[^ ]+?(?:\.jpg|\.png|\.gif)';
+    static public $urlMatch = '\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$\(\)?!:,.]*[A-Z0-9+&@#\/%=~_|$]';
 
     static public function getStatus ( $app ) {
 
@@ -60,7 +60,7 @@
 
     static public function getImages( $googleEvent ) {
 
-      preg_match_all( self::$imageMatch, $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER );
+      preg_match_all( '/' . self::$imageMatch . '/i', $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER );
 
       if ( sizeof( $image[ 0 ] ) > 0 ) {
 
@@ -80,7 +80,7 @@
 
     static public function getURLs( $googleEvent ) {
 
-      preg_match_all( self::$urlMatch, $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER );
+      preg_match_all( '/' . self::$urlMatch . '/i', $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER );
 
       if ( sizeof( $url[ 0 ] ) > 0 ) {
 
@@ -103,7 +103,7 @@
       preg_match_all( self::$imageMatch, $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER );
 
       return preg_replace(
-        self::$imageMatch,
+        '/\n' . self::$imageMatch . '/i',
         '',
         $googleEvent[ 'description' ]
       );
@@ -115,7 +115,7 @@
       preg_match_all( self::$urlMatch, $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER );
 
       return preg_replace(
-        self::$urlMatch,
+        '/\n' . self::$urlMatch . '/i',
         '',
         $googleEvent[ 'description' ]
       );
