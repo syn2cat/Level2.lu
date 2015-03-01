@@ -57,8 +57,6 @@
 
           if ( $format == 'json' ) {
 
-            print_r( $eventsToReturn );
-
             return $app->json(
               Level2::getEventsByMonth(
                 Level2::getEvents( $app ),
@@ -86,23 +84,35 @@
 
       });
 
-      $ctr->get('/events/{count}', function( $count ) use ( $app ) {
+      $ctr->get('/spaceapi', function(  ) use ( $app ) {
 
-        if ( strpos( $count, '.' ) !== false ) {
+        return $app->json(
+          Helpers::spaceAPI( $app )
+        );
 
-          $arguments = explode( '.', $count );
-          $count  = $arguments[ 0 ];
+      });
+
+      $ctr->get('/events/{parameter}', function( $parameter ) use ( $app ) {
+
+        if ( $parameter == 'json' ) {
+
+          return $app->json(
+            Level2::getEvents( $app )
+          );
+
+        } else if ( strpos( $parameter, '.' ) !== false ) {
+
+          $arguments = explode( '.', $parameter );
+          $parameter  = $arguments[ 0 ];
           $format = $arguments[ 1 ];
 
           if ( $format == 'json' ) {
-
-            print_r( $eventsToReturn );
 
             return $app->json(
               array_slice(
                 Level2::getEvents( $app ),
                 0,
-                $count
+                $parameter
               )
             );
 
@@ -118,7 +128,7 @@
             'events'    =>  array_slice(
               Level2::getEvents( $app ),
               0,
-              $count
+              $parameter
             )
           )
         );
