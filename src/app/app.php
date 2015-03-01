@@ -25,7 +25,9 @@
     'twig.path' => __DIR__ . '/views',
   ));
 
-  $app->mount( '/', new level2\WebControllerProvider()  );
+  $app->mount( '/', new level2\Level2ControllerProvider()  );
+
+  $app->mount( '/events', new level2\EventsControllerProvider()  );
 
   $app->error(function (\Exception $e, $code) use ( $app ) {
       switch ($code) {

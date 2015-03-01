@@ -5,30 +5,13 @@
   use Silex\Application;
   use Silex\ControllerProviderInterface;
 
-  class WebControllerProvider implements ControllerProviderInterface {
+  class EventsControllerProvider implements ControllerProviderInterface {
 
     public function connect ( Application $app ) {
 
       $ctr = $app['controllers_factory'];
 
       $ctr->get('/', function() use ( $app ) {
-
-        return $app['twig']->render(
-          'level2.twig',
-          array(
-            'page'      =>  'home',
-            'level2'    =>  Level2::getStatus( $app ),
-            'events'    =>  array_slice(
-              Level2::getEvents( $app ),
-              0,
-              1
-            )
-          )
-        );
-
-      });
-
-      $ctr->get('/events/', function() use ( $app ) {
 
         $eventsToReturn = Level2::getEventsByMonth(
           Level2::getEvents( $app ),
@@ -47,7 +30,7 @@
 
       });
 
-      $ctr->get('/events/{year}/{month}', function( $year, $month ) use ( $app ) {
+      $ctr->get('/{year}/{month}', function( $year, $month ) use ( $app ) {
 
         if ( strpos( $month, '.' ) !== false ) {
 
@@ -84,21 +67,20 @@
 
       });
 
-      $ctr->get('/spaceapi', function(  ) use ( $app ) {
-
-        return $app->json(
-          Helpers::spaceAPI( $app )
-        );
-
-      });
-
-      $ctr->get('/events/{parameter}', function( $parameter ) use ( $app ) {
+      $ctr->get('/{parameter}', function( $parameter ) use ( $app ) {
 
         if ( $parameter == 'json' ) {
 
           return $app->json(
             Level2::getEvents( $app )
           );
+
+        } else if ( $parameter == 'ical' ) {
+
+          header('Content-type: text/calendar; charset=utf-8');
+          header('Content-Disposition: attachment; filename=calendar.ics');
+
+          return file_get_contents( $app[ 'cache' ][ 'calendar' ][ 'ical' ] );
 
         } else if ( strpos( $parameter, '.' ) !== false ) {
 
@@ -132,15 +114,6 @@
             )
           )
         );
-
-      });
-
-      $ctr->get('/scrape', function() use ( $app ) {
-
-        Helpers::saveFile ( json_encode( Level2::getJSONCalendar( $app ) ),   'cache/calendar.json' );
-        Helpers::saveFile ( file_get_contents( $app[ 'google' ][ 'ical' ] ) , 'cache/calendar.ics' );
-
-        return true;
 
       });
 
