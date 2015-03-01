@@ -1,12 +1,6 @@
 # Level2.lu
 A website for the Level2 Hackspace
 
-mobiliteit
-==========
-
-Gathering bus information from a specific station in Luxembourg is hard
-This tool helps you to just get back the json that mobiliteit.lu should give you back
-
 ##Usage
 - **[<code>GET</code> events/json](https://level2.lu/events/json)**
 - **[<code>GET</code> events/:COUNT.json](https://level2.lu/events/42.json)**
