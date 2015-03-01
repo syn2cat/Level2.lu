@@ -102,12 +102,7 @@ img {
  * END - NAVBAR
  */
 
-h2, h3, h4 {
-  text-shadow: 1px 0px 6px rgba( 255, 255, 255, 0.7 );
-  margin: 0;
-}
-
-p {
+h2, h3, h4, p {
   margin: 0;
 }
 .event h2 {

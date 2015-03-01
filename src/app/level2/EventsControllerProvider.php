@@ -13,18 +13,16 @@
 
       $ctr->get('/', function() use ( $app ) {
 
-        $eventsToReturn = Level2::getEventsByMonth(
-          Level2::getEvents( $app ),
-          date( 'Y' ),
-          date( 'm' )
-        );
-
         return $app['twig']->render(
           'event-list.twig',
           array(
             'page'      =>  'events',
             'level2'    =>  Level2::getStatus( $app ),
-            'events'    =>  $eventsToReturn
+            'events'    =>  array_slice(
+              Level2::getEvents( $app ),
+              0,
+              25
+            )
           )
         );
 
