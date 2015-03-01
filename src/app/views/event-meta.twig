@@ -9,13 +9,15 @@
     {% endif %}
   </div>
 {% else %}
-  {% if event.url %}
-    <a target="_blank" href="{{ event.url }}">
+  <div class="img">
+    {% if event.url %}
+      <a target="_blank" href="{{ event.url }}">
+        <img src="{{ level2.logo }}" />
+      </a>
+    {% else %}
       <img src="{{ level2.logo }}" />
-    </a>
-  {% else %}
-    <img src="{{ level2.logo }}" />
-  {% endif %}
+    {% endif %}
+  </div>
 {% endif %}
 <h4>{{ event.date }}</h4>
 {% if event.location is defined %}
