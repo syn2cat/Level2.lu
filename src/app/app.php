@@ -15,6 +15,10 @@
     )
   );
 
+  $app->register( new Silex\Provider\DoctrineServiceProvider(),
+    array( $app[ 'db.options' ] )
+  );
+
   // Add header to allow access from everywhere
   $app->after( function ( Request $request, Response $response ) {
     $response->headers->set( 'Access-Control-Allow-Origin', '*' );
@@ -32,7 +36,6 @@
   $app->error(function (\Exception $e, $code) use ( $app ) {
     if ( $code  == 404 ) {
       return $app->redirect('/');
-      return new Response($message);
     }
   });
 
