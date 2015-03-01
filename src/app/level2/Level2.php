@@ -179,4 +179,38 @@
 
     }
 
+    static public function getChartData( $app ) {
+
+      $dowMap = array( 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' );
+
+      $chartDataQuery = 'SELECT ROUND( AVG( people ) )
+        FROM      state
+        WHERE datetime >= curdate() - INTERVAL 2 WEEK
+        AND   WEEKDAY( datetime ) = ?
+        AND   HOUR   ( datetime ) = ?';
+
+      for( $dow = 0; $dow < 7; $dow++ ) {
+
+        $chartDataByDay[ 'name' ] = $dowMap[ $dow ];
+
+        for( $hod = 0; $hod < 24; $hod++ ) {
+
+          $chartDataByDay[ 'data' ][ $hod ] = $app[ 'db' ]->fetchColumn(
+            $chartDataQuery,
+            array(
+              $dow,
+              $hod
+            )
+          );
+
+        }
+
+        $chart[ $dow ] = $chartDataByDay;
+
+      }
+
+      return $chart;
+
+    }
+
   }

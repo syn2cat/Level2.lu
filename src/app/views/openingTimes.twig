@@ -1,0 +1,37 @@
+{% extends "base.twig" %}
+
+{% block container %}
+
+<div class="col-xs-12 well chart">
+
+  <table id="for-chart">
+    <tfoot>
+        <tr>
+          <td>&nbsp;</td>
+          {% for hour in 0..23 %}
+            <th>{{ hour }}</th>
+          {% endfor %}
+        </tr>
+    </tfoot>
+    <tbody>
+
+      {% for day in chart %}
+        <tr>
+          <th scope="row">{{ day.name }}</th>
+          {% for value in day.data %}
+            <td>{{ value }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+
+
+
+    </tbody>
+  </table>
+  <div id="chart"></div>
+</div>
+
+<script src="/js/raphael.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/dots.js" type="text/javascript" charset="utf-8"></script>
+
+{% endblock %}

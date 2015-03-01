@@ -41,8 +41,9 @@
         return $app['twig']->render(
           'openingTimes.twig',
           array(
-            'page'      =>  'chart',
-            'level2'    =>  Level2::getStatus( $app )
+            'page'    =>  'chart',
+            'level2'  =>  Level2::getStatus( $app ),
+            'chart'   =>  Helpers::JSON2Array( $app[ 'cache' ][ 'attendance' ][ 'json' ] )
           )
         );
 
@@ -50,8 +51,9 @@
 
       $ctr->get('/scrape', function() use ( $app ) {
 
-        Helpers::saveFile ( json_encode( Level2::getJSONCalendar( $app ) ),   $app[ 'cache' ][ 'calendar' ][ 'json' ] );
-        Helpers::saveFile ( file_get_contents( $app[ 'google' ][ 'ical' ] ) , $app[ 'cache' ][ 'calendar' ][ 'ical' ] );
+        Helpers::saveFile ( json_encode( Level2::getJSONCalendar( $app )  ) , $app[ 'cache' ][ 'calendar'   ][ 'json' ] );
+        Helpers::saveFile ( file_get_contents( $app[ 'google' ][ 'ical' ] ) , $app[ 'cache' ][ 'calendar'   ][ 'ical' ] );
+        Helpers::saveFile ( json_encode( Level2::getChartData( $app )     ) , $app[ 'cache' ][ 'attendance' ][ 'json' ] );
 
         return true;
 
