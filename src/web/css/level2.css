@@ -185,3 +185,9 @@ section:hover .well {
   color: #fff;
   background-color: #F56533;
 }
+img.emoji {
+  height: 1rem;
+  width: 1rem;
+  padding: 0 .05rem 0 .1rem;
+  vertical-align: -0.7rem;
+}
