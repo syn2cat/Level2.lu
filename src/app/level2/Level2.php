@@ -185,7 +185,7 @@
 
       $chartDataQuery = 'SELECT ROUND( AVG( people ) )
         FROM      state
-        WHERE datetime >= curdate() - INTERVAL 2 WEEK
+        WHERE datetime >= curdate() - INTERVAL 312 Hour
         AND   WEEKDAY( datetime ) = ?
         AND   HOUR   ( datetime ) = ?';
 
