@@ -100,7 +100,7 @@
 
     static public function removeImages( $googleEvent ) {
 
-      preg_match_all( self::$imageMatch, $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER );
+      preg_match_all( '/' . self::$imageMatch . '/i', $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER );
 
       return preg_replace(
         '/\n' . self::$imageMatch . '/i',
@@ -112,7 +112,7 @@
 
     static public function removeURLs( $googleEvent ) {
 
-      preg_match_all( self::$urlMatch, $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER );
+      preg_match_all( '/' . self::$urlMatch . '/i', $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER );
 
       return preg_replace(
         '/\n' . self::$urlMatch . '/i',
