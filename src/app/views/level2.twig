@@ -9,7 +9,7 @@
     <section class="visible-xs">
 
       {% if level2.open %}
-        <div class="well status status-open">We're OPEN since {{ level2.lastchange|date("g:i") }}<br />{{ level2.people }} hacker{% if level2.people > 1 %}s{% endif %} present</div>
+        <div class="well status status-open">We're OPEN since {{ level2.lastchange|date("G:i") }}<br />{{ level2.people }} hacker{% if level2.people > 1 %}s{% endif %} present</div>
       {% else %}
         <div class="well status status-closed">Sorry, we're Closed</div>
       {% endif %}
