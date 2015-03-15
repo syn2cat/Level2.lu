@@ -191,3 +191,6 @@ img.emoji {
   padding: 0 .05rem 0 .1rem;
   vertical-align: -0.7rem;
 }
+.moreEvents {
+  text-align: right;
+}
