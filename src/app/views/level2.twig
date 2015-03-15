@@ -16,6 +16,7 @@
 
     </section>
 
+    <section class="hidden-xs">
 
       <h2 class="well">#openMonday</h2>
       <p class="well info">
@@ -59,8 +60,26 @@
 
         {% for event in events %}
 
-          {% embed "event.twig" %}
-          {% endembed %}
+          <div class="row event well">
+
+            <div class="col-sm-4 meta hidden-xs">
+
+              {% embed "event-meta.twig" %}
+              {% endembed %}
+
+            </div>
+            <div class="col-sm-8 description">
+
+              {% embed "event-info.twig" %}
+              {% endembed %}
+
+            </div>
+
+            <div class="moreEvents visible-xs">
+              <h3><a href="/events">&raquo; more events</a></h3>
+            </div>
+
+          </div>
 
         {% endfor %}
 
