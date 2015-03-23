@@ -163,6 +163,9 @@
 
     static public function getEventsByMonth( $events, $year, $month ) {
 
+      $year   = (int) $year;
+      $month  = (int) $month;
+
       $eventsInMonth = false;
 
       foreach( $events as $event ) {
