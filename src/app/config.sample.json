@@ -2,13 +2,25 @@
   "debug"         : false,
   "google"        : {
     "api_key"     : "GOOGLE_API_KEY_GOES_HERE",
-    "calendar_id" : "GOOGLE_CALENDAR_ID_GOES_HERE"
+    "calendar_id" : "GOOGLE_CALENDAR_ID_GOES_HERE",
+    "ical"        : "PUBLIC_ICS_EXPORT_GOES_HERE"
   },
   "spaceAPI"      : "URL_TO_SPACE_API_GOES_HERE",
   "cache"         : {
     "calendar"    : {
       "json"      : "cache/calendar.json",
       "ical"      : "cache/calendar.ical"
+    },
+    "attendance"  : {
+      "json"      : "cache/attendance.json"
     }
+  },
+  "db.options"    : {
+    "driver"      : "pdo_mysql",
+    "charset"     : "utf8",
+    "host"        : "localhost",
+    "dbname"      : "ASDF",
+    "user"        : "ASDF",
+    "password"    : "ASDF"
   }
 }
