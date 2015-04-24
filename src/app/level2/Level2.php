@@ -166,7 +166,7 @@
       $year   = (int) $year;
       $month  = (int) $month;
 
-      $eventsInMonth = false;
+      $eventsInMonth = array();
 
       foreach( $events as $event ) {
 
@@ -188,7 +188,7 @@
       $month  = (int) $month;
       $day    = (int) $day;
 
-      $eventsInDay = false;
+      $eventsInDay = array();
 
       foreach( $events as $event ) {
 
