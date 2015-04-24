@@ -65,6 +65,45 @@
 
       });
 
+      $ctr->get('/{year}/{month}/{day}', function( $year, $month, $day ) use ( $app ) {
+
+        if ( strpos( $day, '.' ) !== false ) {
+
+          $arguments = explode( '.', $day );
+          $day  = $arguments[ 0 ];
+          $format = $arguments[ 1 ];
+
+          if ( $format == 'json' ) {
+
+            return $app->json(
+              Level2::getEventsByDay(
+                Level2::getEvents( $app ),
+                $year,
+                $month,
+                $day
+              )
+            );
+
+          }
+
+        }
+
+        return $app['twig']->render(
+          'event-list.twig',
+          array(
+            'page'      =>  'events',
+            'level2'    =>  Level2::getStatus( $app ),
+            'events'    =>  Level2::getEventsByDay(
+              Level2::getEvents( $app ),
+              $year,
+              $month,
+              $day
+            )
+          )
+        );
+
+      });
+
       $ctr->get('/{parameter}', function( $parameter ) use ( $app ) {
 
         if ( $parameter == 'json' ) {

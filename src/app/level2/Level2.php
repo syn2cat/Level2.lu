@@ -182,6 +182,28 @@
 
     }
 
+    static public function getEventsByDay( $events, $year, $month, $day ) {
+
+      $year   = (int) $year;
+      $month  = (int) $month;
+      $day    = (int) $day;
+
+      $eventsInDay = false;
+
+      foreach( $events as $event ) {
+
+        if ( ( date( 'Y', $event[ 'start' ] ) == $year ) && ( date( 'm', $event[ 'start' ] ) == $month ) && ( date( 'd', $event[ 'start' ] ) == $day ) ) {
+
+          $eventsInDay[] = $event;
+
+        }
+
+      }
+
+      return $eventsInDay;
+
+    }
+
     static public function getChartData( $app ) {
 
       $dowMap = array( 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' );
