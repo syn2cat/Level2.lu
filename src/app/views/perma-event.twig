@@ -1,0 +1,81 @@
+{% extends "base.twig" %}
+
+{% block twitterCard %}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@Level2Lu">
+  <meta name="twitter:title" content="Level2 | {{ event.name }}">
+  <meta name="twitter:description" content="{{ event.description }}">
+  <meta name="twitter:image" content="{{ event.image }}">
+{% endblock twitterCard %}
+
+{% block container %}
+
+<div class="row">
+
+  <div class="col-md-8 hidden-xs">
+
+    <section>
+
+      {% embed "event.twig" %}
+      {% endembed %}
+
+    </section>
+
+    <section>
+
+      <h2 class="well">Map</h2>
+
+      <div class="google-map-container">
+        <a target="_blank" href="https://goo.gl/maps/OWqIf">
+          <img class="google-map no-margin" src="https://files.level2.lu/website/map.png" />
+        </a>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="col-md-4">
+
+    <section>
+
+      <h2 class="well">Address</h2>
+
+      <p class="well no-top-radius">
+        Level2<br />
+        87, route de Thionville<br />
+        L-2611 Luxembourg<br />
+        T: <a href="tel:+352-20-333-550">+352 20 333 550</a>
+      </p>
+
+    </section>
+
+    <section>
+
+      <h2 class="well">Bus</h2>
+
+      <p class="well no-top-radius">
+        The closest bus station is <strong>Neufchâteau</strong>.<br />
+        <strong>Line 16<br />
+        Line 192</strong>
+      </p>
+
+    </section>
+
+    <section>
+
+      <h2 class="well">Open the door</h2>
+
+      <h3 class="well no-top-radius">
+        Please call <br /><strong><a href="tel:+352-20-333-550">+352 20 333 550</a></strong><br />
+        if the door is closed.<br />We'll open the door for you.<br />
+        There is no doorbell just yet.
+      </h3>
+
+    </section>
+
+  </div>
+
+</div>
+
+{% endblock %}

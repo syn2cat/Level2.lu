@@ -204,6 +204,22 @@
 
     }
 
+    static public function getEvent( $events, $startUnix ) {
+
+      $startUnix = (int) $startUnix;
+
+      foreach( $events as $event ) {
+
+        if ( $event[ 'start' ] == $startUnix ) {
+
+          return $event;
+
+        }
+
+      }
+
+    }
+
     static public function getChartData( $app ) {
 
       $dowMap = array( 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' );

@@ -139,6 +139,22 @@
 
         }
 
+        if ( strlen( $parameter ) == 10 ) {
+
+          return $app['twig']->render(
+            'perma-event.twig',
+            array(
+              'page'      =>  'events',
+              'level2'    =>  Level2::getStatus( $app ),
+              'event'     =>  Level2::getEvent(
+                Level2::getEvents( $app ),
+                $parameter
+              )
+            )
+          );
+
+        }
+
         return $app['twig']->render(
           'event-list.twig',
           array(

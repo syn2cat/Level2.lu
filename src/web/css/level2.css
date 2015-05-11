@@ -194,3 +194,10 @@ img.emoji {
 .moreEvents {
   text-align: right;
 }
+a.permaLink, a.permaLink:hover, a.permaLink:link, a.permaLink:active {
+  color: #777777;
+}
+a.permaLink:hover {
+  color: #777777;
+  text-decoration: underline;
+}

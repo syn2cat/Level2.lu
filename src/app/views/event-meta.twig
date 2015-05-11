@@ -19,7 +19,7 @@
     {% endif %}
   </div>
 {% endif %}
-<h4>{{ event.date }}</h4>
+<h4><a class="permaLink" href="/events/{{ event.start }}">{{ event.date }}</a></h4>
 {% if event.location is defined %}
   <h4 class="location">{{ event.location }}</h4>
 {% endif %}
