@@ -31,7 +31,7 @@
         . '?singleEvents=true'
         . '&orderBy=startTime'
         . '&timeMin=' . date( 'Y-m-d' ) . 'T' . date( 'H' ) . '%3A' . date( 'i' ) . '%3A' . date( 's' ) . '%2B01%3A00'
-        . '&fields=description%2Citems(description%2Crecurrence%2Csummary%2Clocation%2Cstart%2Cend%2Cid)%2Csummary'
+        . '&fields=description%2Citems(description%2Crecurrence%2Csummary%2Clocation%2Cstart%2Cend)%2Csummary'
         . '&key=' . $app[ 'google' ][ 'api_key' ];
 
       return Helpers::JSON2Array( $googleCalendarJson );
@@ -132,7 +132,6 @@
 
         $event = self::getEventDateTime( $googleEvent );
 
-        $event[ 'id'          ] = $googleEvent[ 'id' ];
         $event[ 'name'        ] = $googleEvent[ 'summary' ];
 
         if ( array_key_exists( 'location' , $googleEvent ) ){
