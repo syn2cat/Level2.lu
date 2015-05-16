@@ -33,6 +33,8 @@
 
   $app->mount( '/events', new level2\EventsControllerProvider()  );
 
+  $app->mount( '/press', new level2\PressControllerProvider()  );
+
   $app->error(function (\Exception $e, $code) use ( $app ) {
     if ( $code  == 404 ) {
       return $app->redirect('/');

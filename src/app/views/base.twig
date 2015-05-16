@@ -50,7 +50,8 @@
           <ul class="nav navbar-nav">
             <li {% if page == 'home'   %}  class="active" {% endif %} ><a href="/">Level2</a></li>
             <li {% if page == 'events' %}  class="active" {% endif %} ><a href="/events">Events</a></li>
-            <li {% if page == 'api'    %}  class="active" {% endif %} ><a target="_blank" href="https://github.com/syn2cat/Level2.lu/blob/master/README.md">API</a></li>
+            <li><a target="_blank" href="https://github.com/syn2cat/Level2.lu/blob/master/README.md">API</a></li>
+            <li {% if page == 'press' %}  class="active" {% endif %} ><a href="/press">Press</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right hidden-xs">
             {% if level2.open %}

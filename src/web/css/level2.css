@@ -45,6 +45,13 @@ a {
   text-decoration: none;
 }
 
+a.btn-info {
+  color: #ffffff;
+}
+a.btn-info:hover {
+  color: #ffffff;
+}
+
 /**
  * START - NAVBAR
  */
