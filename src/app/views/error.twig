@@ -1,0 +1,36 @@
+{% extends "base.twig" %}
+
+{% block container %}
+
+{% set number = ['oh!', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'] %}
+{% set description = {
+    401 : 'sorry, you need to authenticate<br />yourself first to access this page',
+    403 : 'sorry, I cannot show you a page<br />you have not been granted access to',
+    404 : "sorry, that page doesn't<br />exist or has been moved",
+    500 : 'sorry,<br />the server failed to process this page'
+  }
+%}
+
+<div class="row">
+
+  <div class="col-md-8 col-md-offset-2 error">
+
+    <div class="code">
+
+      <p>{{ number[ code[0:1] ] }}</p>
+      <p {% if code[2:1] != 0 %}class="small"{% endif %}>{{ number[ code[1:1] ] }}</p>
+      <p {% if code[2:1] == 0 %}class="small"{% endif %}>{{ number[ code[2:1] ] }}</p>
+
+    </div>
+
+    <div class="description light">{{ description[ code ] | raw }}</div>
+    <div class="line"></div>
+    <div class="description light">
+      <a target="_blank" href="https://twitter.com/Level2lu">Get in touch with us</a><br />if you think this is a mistake
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

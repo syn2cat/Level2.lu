@@ -208,3 +208,33 @@ a.permaLink:hover {
   color: #777777;
   text-decoration: underline;
 }
+.error {
+  text-transform: uppercase;
+  display: block;
+  width: 620px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -200px 0 0 -310px;
+  text-align: center;
+}
+.code {
+  line-height: 1;
+  font-size: 6em;
+  margin-bottom: 0.2em;
+  font-weight: 800;
+}
+.code p {
+  line-height: 1em;
+}
+.small {
+  font-size: 0.5em;
+}
+.line {
+  margin: 2em;
+  height: 2px;
+  width: 100px;
+  background-color: #111;
+  display: inline-block;
+}

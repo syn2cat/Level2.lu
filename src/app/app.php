@@ -35,10 +35,18 @@
 
   $app->mount( '/press', new level2\PressControllerProvider()  );
 
-  $app->error(function (\Exception $e, $code) use ( $app ) {
-    if ( $code  == 404 ) {
-      return $app->redirect('/');
-    }
+  $app->error(function (\Exception $e, $code) use($app) {
+
+    $message = $app['twig']->render(
+      'error.twig',
+      array(
+        'code'    => $code,
+        'level2'  => level2\Level2::getStatus( $app ),
+        'page'    => 'Error ' . $code
+      )
+    );
+    return new Response( $message, $code );
+
   });
 
   return $app;
