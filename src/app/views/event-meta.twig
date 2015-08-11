@@ -2,20 +2,20 @@
   <div class="img">
     {% if event.url %}
       <a target="_blank" href="{{ event.url }}">
-        <img src="{{ event.image }}" />
+        <img src="{{ event.image }}" alt="{{ event.name }}" title="{{ event.name }}" />
       </a>
     {% else %}
-      <img src="{{ event.image }}" />
+      <img src="{{ event.image }}" alt="{{ event.name }}" title="{{ event.name }}" />
     {% endif %}
   </div>
 {% else %}
   <div class="img">
     {% if event.url %}
       <a target="_blank" href="{{ event.url }}">
-        <img src="{{ level2.logo }}" />
+        <img src="{{ level2.logo }}" alt="Level2 logo" title="Level2 logo" />
       </a>
     {% else %}
-      <img src="{{ level2.logo }}" />
+      <img src="{{ level2.logo }}" alt="Level2 logo" title="Level2 logo" />
     {% endif %}
   </div>
 {% endif %}
