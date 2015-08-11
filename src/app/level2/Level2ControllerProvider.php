@@ -28,7 +28,7 @@
 
       });
 
-      $ctr->get('/spaceapi', function(  ) use ( $app ) {
+      $ctr->get('/spaceapi/', function(  ) use ( $app ) {
 
         return $app->json(
           Helpers::spaceAPI( $app )
@@ -36,7 +36,7 @@
 
       });
 
-      $ctr->get('/openingTimes', function(  ) use ( $app ) {
+      $ctr->get('/openingTimes/', function(  ) use ( $app ) {
 
         return $app['twig']->render(
           'openingTimes.twig',
@@ -49,7 +49,7 @@
 
       });
 
-      $ctr->get('/scrape', function() use ( $app ) {
+      $ctr->get('/scrape/', function() use ( $app ) {
 
         Helpers::saveFile ( json_encode( Level2::getJSONCalendar( $app )  ) , $app[ 'cache' ][ 'calendar'   ][ 'json' ] );
         Helpers::saveFile ( file_get_contents( $app[ 'google' ][ 'ical' ] ) , $app[ 'cache' ][ 'calendar'   ][ 'ical' ] );

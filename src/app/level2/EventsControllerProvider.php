@@ -28,7 +28,7 @@
 
       });
 
-      $ctr->get('/{year}/{month}', function( $year, $month ) use ( $app ) {
+      $ctr->get('/{year}/{month}/', function( $year, $month ) use ( $app ) {
 
         if ( strpos( $month, '.' ) !== false ) {
 
@@ -65,7 +65,7 @@
 
       });
 
-      $ctr->get('/{year}/{month}/{day}', function( $year, $month, $day ) use ( $app ) {
+      $ctr->get('/{year}/{month}/{day}/', function( $year, $month, $day ) use ( $app ) {
 
         if ( strpos( $day, '.' ) !== false ) {
 
@@ -104,7 +104,7 @@
 
       });
 
-      $ctr->get('/{parameter}', function( $parameter ) use ( $app ) {
+      $ctr->get('/{parameter}/', function( $parameter ) use ( $app ) {
 
         if ( $parameter == 'json' ) {
 
