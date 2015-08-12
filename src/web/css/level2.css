@@ -109,10 +109,15 @@ img {
  * END - NAVBAR
  */
 
-h2, h3, h4, p {
+h1, h2, h3, h4, p {
   margin: 0;
 }
-.event h2 {
+
+h1 {
+  font-size: 1.5rem;
+}
+
+.event h1 {
   font-size: 2rem;
   margin-bottom: 0.7rem;
 }
@@ -140,7 +145,7 @@ h2, h3, h4, p {
 .google-map-container {
   width: 100%;
 }
-h2.well {
+h1.well {
   padding: auto 5rem;
   background: rgba( 51, 51, 51, 0.7 );
   background: rgba( 0, 174, 201, 0.7 );
@@ -156,7 +161,7 @@ h2.well {
   border-radius: 0 0 0.4rem 0.4rem ;
 }
 
-section:hover h2.well {
+section:hover h1.well {
   background: rgba( 51, 51, 51, 0.8 );
   background: rgba( 0, 174, 201, 0.8 );
 }

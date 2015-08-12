@@ -1,4 +1,4 @@
-<h2>
+<h1>
   {% if event.url %}
     <a target="_blank" href="{{ event.url }}">
       {{ event.name }}
@@ -6,7 +6,7 @@
   {% else %}
       {{ event.name }}
   {% endif %}
-</h2>
+</h1>
 <h4 class="visible-xs">
 {{ event.date }}
 {% if event.location is defined %}
