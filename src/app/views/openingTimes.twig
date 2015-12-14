@@ -18,8 +18,8 @@
       {% for day in chart %}
         <tr>
           <th scope="row">{{ day.name }}</th>
-          {% for value in day.data %}
-            <td>{{ value }}</td>
+          {% for hour in 0..23 %}
+            <td>{{ day.data[hour] }}</td>
           {% endfor %}
         </tr>
       {% endfor %}

@@ -3,6 +3,8 @@
   namespace level2;
 
   use Silex\Application;
+  use \DateTime;
+  use \DateTimeZone;
 
   class Level2 {
 
@@ -223,6 +225,7 @@
     static public function getChartData( $app ) {
 
       $dowMap = array( 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' );
+      $localtime_offset = date('Z') / 3600;
 
       $chartDataQuery = 'SELECT ROUND( AVG( people ) )
         FROM      state
@@ -235,8 +238,7 @@
         $chartDataByDay[ 'name' ] = $dowMap[ $dow ];
 
         for( $hod = 0; $hod < 24; $hod++ ) {
-
-          $chartDataByDay[ 'data' ][ $hod ] = $app[ 'db' ]->fetchColumn(
+          $chartDataByDay[ 'data' ][ ($hod + $localtime_offset) % 24 ] = $app[ 'db' ]->fetchColumn(
             $chartDataQuery,
             array(
               $dow,
