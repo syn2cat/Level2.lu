@@ -1,259 +1,210 @@
 <?php
 
-  namespace level2;
+namespace level2;
 
-  use Silex\Application;
-  use \DateTime;
-  use \DateTimeZone;
+use DateTime;
 
-  class Level2 {
+class Level2
+{
+    public static $imageMatch = 'https?:\/\/[^ ]+?(?:\.jpg|\.png|\.gif)';
+    public static $urlMatch   = '\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$\(\)?!:,.]*[A-Z0-9+&@#\/%=~_|$]';
 
-    static public $imageMatch = 'https?:\/\/[^ ]+?(?:\.jpg|\.png|\.gif)';
-    static public $urlMatch = '\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$\(\)?!:,.]*[A-Z0-9+&@#\/%=~_|$]';
+    public static function getStatus($app)
+    {
+        $spaceAPI = Helpers::spaceAPI($app);
 
-    static public function getStatus ( $app ) {
+        $Level2[ 'open'       ] = $spaceAPI[ 'state'      ][ 'open'               ];
+        $Level2[ 'lastchange' ] = $spaceAPI[ 'state'      ][ 'lastchange'         ];
+        $Level2[ 'people'     ] = $spaceAPI[ 'sensors'    ][ 'people_now_present' ][ 0 ][ 'value' ];
+        $Level2[ 'address'    ] = $spaceAPI[ 'location'   ][ 'address'            ];
+        $Level2[ 'phone'      ] = $spaceAPI[ 'contact'    ][ 'phone'              ];
+        $Level2[ 'logo'       ] = $spaceAPI[ 'logo'       ];
 
-      $spaceAPI = Helpers::spaceAPI( $app );
-
-      $Level2[ 'open'       ] = $spaceAPI[ 'state'      ][ 'open'               ];
-      $Level2[ 'lastchange' ] = $spaceAPI[ 'state'      ][ 'lastchange'         ];
-      $Level2[ 'people'     ] = $spaceAPI[ 'sensors'    ][ 'people_now_present' ][ 0 ][ 'value' ];
-      $Level2[ 'address'    ] = $spaceAPI[ 'location'   ][ 'address'            ];
-      $Level2[ 'phone'      ] = $spaceAPI[ 'contact'    ][ 'phone'              ];
-      $Level2[ 'logo'       ] = $spaceAPI[ 'logo'       ];
-
-      return $Level2;
-
+        return $Level2;
     }
 
-    static public function getJSONCalendar ( $app ) {
+    public static function getJSONCalendar($app)
+    {
+        $googleCalendarJson = 'https://www.googleapis.com/calendar/v3/calendars/'
+        .$app[ 'google' ][ 'calendar_id' ].'/events'
+        .'?singleEvents=true'
+        .'&orderBy=startTime'
+        .'&timeMin='.date('Y-m-d').'T'.date('H').'%3A'.date('i').'%3A'.date('s').'%2B01%3A00'
+        .'&fields=description%2Citems(description%2Crecurrence%2Csummary%2Clocation%2Cstart%2Cend)%2Csummary'
+        .'&key='.$app[ 'google' ][ 'api_key' ];
 
-      $googleCalendarJson = 'https://www.googleapis.com/calendar/v3/calendars/'
-        . $app[ 'google' ][ 'calendar_id' ] . '/events'
-        . '?singleEvents=true'
-        . '&orderBy=startTime'
-        . '&timeMin=' . date( 'Y-m-d' ) . 'T' . date( 'H' ) . '%3A' . date( 'i' ) . '%3A' . date( 's' ) . '%2B01%3A00'
-        . '&fields=description%2Citems(description%2Crecurrence%2Csummary%2Clocation%2Cstart%2Cend)%2Csummary'
-        . '&key=' . $app[ 'google' ][ 'api_key' ];
-
-      return Helpers::JSON2Array( $googleCalendarJson );
-
+        return Helpers::JSON2Array($googleCalendarJson);
     }
 
-    static public function getEventDateTime ( $googleEvent ) {
+    public static function getEventDateTime($googleEvent)
+    {
+        if (array_key_exists('dateTime', $googleEvent[ 'start' ])) {
+            $event[ 'start' ] = strtotime($googleEvent[ 'start' ][ 'dateTime' ]);
+            $event[ 'end'   ] = strtotime($googleEvent[ 'end'   ][ 'dateTime' ]);
 
-      if ( array_key_exists( 'dateTime' , $googleEvent[ 'start' ] ) ){
-        $event[ 'start' ] = strtotime( $googleEvent[ 'start' ][ 'dateTime' ] );
-        $event[ 'end'   ] = strtotime( $googleEvent[ 'end'   ][ 'dateTime' ] );
-
-        $event[ 'date'  ] = date( 'l, j. M G:i', $event[ 'start' ] );
-
-      } else {
-        $event[ 'start' ] = strtotime( $googleEvent[ 'start' ][ 'date' ] );
-        $event[ 'end'   ] = strtotime( $googleEvent[ 'end'   ][ 'date' ] );
-
-        $event[ 'date'  ] = date( 'l, j. M', $event[ 'start' ] );
-
-      }
-
-      return $event;
-
-    }
-
-    static public function getImages( $googleEvent ) {
-
-      preg_match_all( '/' . self::$imageMatch . '/i', $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER );
-
-      if ( sizeof( $image[ 0 ] ) > 0 ) {
-
-        if ( $image[ 0 ][ 0 ] != '' ) {
-
-          return $image[ 0 ][ 0 ];
-
+            $event[ 'date'  ] = date('l, j. M G:i', $event[ 'start' ]);
         } else {
+            $event[ 'start' ] = strtotime($googleEvent[ 'start' ][ 'date' ]);
+            $event[ 'end'   ] = strtotime($googleEvent[ 'end'   ][ 'date' ]);
 
-          return false;
-
+            $event[ 'date'  ] = date('l, j. M', $event[ 'start' ]);
         }
 
-      }
-
+        return $event;
     }
 
-    static public function getURLs( $googleEvent ) {
+    public static function getImages($googleEvent)
+    {
+        preg_match_all('/'.self::$imageMatch.'/i', $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER);
 
-      preg_match_all( '/' . self::$urlMatch . '/i', $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER );
-
-      if ( sizeof( $url[ 0 ] ) > 0 ) {
-
-        if ( $url[ 0 ][ 0 ] != '' ) {
-
-          return $url[ 0 ][ 0 ];
-
-        } else {
-
-          return false;
-
+        if (sizeof($image[ 0 ]) > 0) {
+            if ($image[ 0 ][ 0 ] != '') {
+                return $image[ 0 ][ 0 ];
+            } else {
+                return false;
+            }
         }
-
-      }
-
     }
 
-    static public function removeImages( $googleEvent ) {
+    public static function getURLs($googleEvent)
+    {
+        preg_match_all('/'.self::$urlMatch.'/i', $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER);
 
-      preg_match_all( '/' . self::$imageMatch . '/i', $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER );
+        if (sizeof($url[ 0 ]) > 0) {
+            if ($url[ 0 ][ 0 ] != '') {
+                return $url[ 0 ][ 0 ];
+            } else {
+                return false;
+            }
+        }
+    }
 
-      return preg_replace(
-        '/\n' . self::$imageMatch . '/i',
+    public static function removeImages($googleEvent)
+    {
+        preg_match_all('/'.self::$imageMatch.'/i', $googleEvent[ 'description' ], $image, PREG_PATTERN_ORDER);
+
+        return preg_replace(
+        '/\n'.self::$imageMatch.'/i',
         '',
         $googleEvent[ 'description' ]
       );
-
     }
 
-    static public function removeURLs( $googleEvent ) {
+    public static function removeURLs($googleEvent)
+    {
+        preg_match_all('/'.self::$urlMatch.'/i', $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER);
 
-      preg_match_all( '/' . self::$urlMatch . '/i', $googleEvent[ 'description' ], $url, PREG_PATTERN_ORDER );
-
-      return preg_replace(
-        '/\n' . self::$urlMatch . '/i',
+        return preg_replace(
+        '/\n'.self::$urlMatch.'/i',
         '',
         $googleEvent[ 'description' ]
       );
-
     }
 
-    static public function getEvents ( $app ) {
+    public static function getEvents($app)
+    {
+        $googleCalendar = Helpers::JSON2Array($app[ 'cache' ][ 'calendar' ][ 'json' ]);
 
-      $googleCalendar = Helpers::JSON2Array( $app[ 'cache' ][ 'calendar' ][ 'json' ] );
+        foreach ($googleCalendar[ 'items' ] as $googleEvent) {
+            unset($event);
 
-      foreach( $googleCalendar[ 'items' ] as $googleEvent ) {
+            $event = self::getEventDateTime($googleEvent);
 
-        unset( $event );
+            $event[ 'name'        ] = $googleEvent[ 'summary' ];
 
-        $event = self::getEventDateTime( $googleEvent );
+            if (array_key_exists('location', $googleEvent)) {
+                $event[ 'location'  ] = $googleEvent[ 'location' ];
+            }
 
-        $event[ 'name'        ] = $googleEvent[ 'summary' ];
+            $event[ 'image'       ] = false;
+            $event[ 'url'         ] = false;
 
-        if ( array_key_exists( 'location' , $googleEvent ) ){
-          $event[ 'location'  ] = $googleEvent[ 'location' ];
+            if (array_key_exists('description', $googleEvent)) {
+                $event[ 'description' ] = $googleEvent[ 'description' ];
+
+                $event[ 'image'       ] = self::getImages($event);
+                $event[ 'description' ] = self::removeImages($event);
+                $event[ 'url'         ] = self::getURLs($event);
+                $event[ 'description' ] = self::removeURLs($event);
+                $event[ 'description' ] = nl2br($event[ 'description' ]);
+            }
+
+            $events[] = $event;
         }
 
-        $event[ 'image'       ] = false;
-        $event[ 'url'         ] = false;
-
-        if ( array_key_exists( 'description' , $googleEvent ) ){
-
-          $event[ 'description' ] = $googleEvent[ 'description' ];
-
-          $event[ 'image'       ] = self::getImages( $event );
-          $event[ 'description' ] = self::removeImages( $event );
-          $event[ 'url'         ] = self::getURLs( $event );
-          $event[ 'description' ] = self::removeURLs( $event );
-          $event[ 'description' ] = nl2br( $event[ 'description' ] );
-
-        }
-
-        $events[] = $event;
-
-      }
-
-      return $events;
-
+        return $events;
     }
 
-    static public function getEventsByMonth( $events, $year, $month ) {
+    public static function getEventsByMonth($events, $year, $month)
+    {
+        $year   = (int) $year;
+        $month  = (int) $month;
 
-      $year   = (int) $year;
-      $month  = (int) $month;
+        $eventsInMonth = array();
 
-      $eventsInMonth = array();
-
-      foreach( $events as $event ) {
-
-        if ( ( date( 'Y', $event[ 'start' ] ) == $year ) && ( date( 'm', $event[ 'start' ] ) == $month ) ) {
-
-          $eventsInMonth[] = $event;
-
+        foreach ($events as $event) {
+            if ((date('Y', $event[ 'start' ]) == $year) && (date('m', $event[ 'start' ]) == $month)) {
+                $eventsInMonth[] = $event;
+            }
         }
 
-      }
-
-      return $eventsInMonth;
-
+        return $eventsInMonth;
     }
 
-    static public function getEventsByDay( $events, $year, $month, $day ) {
+    public static function getEventsByDay($events, $year, $month, $day)
+    {
+        $year   = (int) $year;
+        $month  = (int) $month;
+        $day    = (int) $day;
 
-      $year   = (int) $year;
-      $month  = (int) $month;
-      $day    = (int) $day;
+        $eventsInDay = array();
 
-      $eventsInDay = array();
-
-      foreach( $events as $event ) {
-
-        if ( ( date( 'Y', $event[ 'start' ] ) == $year ) && ( date( 'm', $event[ 'start' ] ) == $month ) && ( date( 'd', $event[ 'start' ] ) == $day ) ) {
-
-          $eventsInDay[] = $event;
-
+        foreach ($events as $event) {
+            if ((date('Y', $event[ 'start' ]) == $year) && (date('m', $event[ 'start' ]) == $month) && (date('d', $event[ 'start' ]) == $day)) {
+                $eventsInDay[] = $event;
+            }
         }
 
-      }
-
-      return $eventsInDay;
-
+        return $eventsInDay;
     }
 
-    static public function getEvent( $events, $startUnix ) {
+    public static function getEvent($events, $startUnix)
+    {
+        $startUnix = (int) $startUnix;
 
-      $startUnix = (int) $startUnix;
-
-      foreach( $events as $event ) {
-
-        if ( $event[ 'start' ] == $startUnix ) {
-
-          return $event;
-
+        foreach ($events as $event) {
+            if ($event[ 'start' ] == $startUnix) {
+                return $event;
+            }
         }
-
-      }
-
     }
 
-    static public function getChartData( $app ) {
+    public static function getChartData($app)
+    {
+        $dowMap = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
 
-      $dowMap = array( 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' );
-      $localtime_offset = date('Z') / 3600;
-
-      $chartDataQuery = 'SELECT ROUND( AVG( people ) )
+        $chartDataQuery = 'SELECT ROUND( AVG( people ) )
         FROM      state
         WHERE datetime >= curdate() - INTERVAL 312 Hour
         AND   WEEKDAY( datetime ) = ?
         AND   HOUR   ( datetime ) = ?';
 
-      for( $dow = 0; $dow < 7; $dow++ ) {
+        for ($dow = 0; $dow < 7; ++$dow) {
+            $chartDataByDay[ 'name' ] = $dowMap[ $dow ];
 
-        $chartDataByDay[ 'name' ] = $dowMap[ $dow ];
-
-        for( $hod = 0; $hod < 24; $hod++ ) {
-          $chartDataByDay[ 'data' ][ ($hod + $localtime_offset) % 24 ] = $app[ 'db' ]->fetchColumn(
+            for ($hod = 0; $hod < 24; ++$hod) {
+                $chartDataByDay[ 'data' ][ $hod % 24 ] = $app[ 'db' ]->fetchColumn(
             $chartDataQuery,
             array(
               $dow,
-              $hod
+              $hod,
             )
           );
+            }
 
+            $chart[ $dow ] = $chartDataByDay;
         }
 
-        $chart[ $dow ] = $chartDataByDay;
-
-      }
-
-      return $chart;
-
+        return $chart;
     }
-
-  }
+}
