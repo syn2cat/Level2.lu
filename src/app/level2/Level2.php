@@ -6,7 +6,7 @@ use DateTime;
 
 class Level2
 {
-    public static $imageMatch = 'https?:\/\/[^ ]+?(?:\.jpg|\.png|\.gif)';
+    public static $imageMatch = 'https?:\/\/[^ ]+?(?:\.jpg|\.png|\.gif|\.svg)';
     public static $urlMatch   = '\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$\(\)?!:,.]*[A-Z0-9+&@#\/%=~_|$]';
 
     public static function getStatus($app)
