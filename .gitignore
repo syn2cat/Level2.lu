@@ -2,3 +2,5 @@ vendor
 src/app/config.json
 bootstrap-theme*
 src/web/cache/*
+git_id_rsa
+git_id_rsa.pub

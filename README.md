@@ -22,3 +22,7 @@ every event includes the following information:
     https://level2.lu/events/42.json
     https://level2.lu/events/2015/03.json
     https://level2.lu/spaceapi
+
+##
+if you want to change the page contents look into
+src/app/views/level2.twig
